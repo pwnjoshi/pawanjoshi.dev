@@ -1,30 +1,33 @@
 // Site-wide content and configuration
 export const siteConfig = {
   name: "Pawan Joshi",
-  title: "Pawan Joshi — Software Engineer",
+  title: "Pawan Joshi — AI and Cloud Engineer",
   description:
-    "Software engineer specializing in autonomous AI agents and cloud infrastructure. Co-Founder at Tech Sangi, founding leader of AWS Student Builder Group at Graphic Era University.",
+    "Pawan Joshi is a student at Graphic Era University in Dehradun, India, who builds AI agents and cloud systems. Engineering at Tech Sangi and founder of AWS Student Builder Group GEU.",
+  alternateNames: ["pwnjoshi", "pawanjoshidev", "Pawan Joshi Dehradun"],
   url: "https://pawanjoshi.dev",
-  ogImage: "https://pawanjoshi.dev/og.png",
   keywords: [
     "Pawan Joshi",
-    "Software Engineer",
-    "AI Agents",
-    "Cloud Infrastructure",
-    "AWS",
+    "Pawan Joshi Dehradun",
+    "Pawan Joshi Graphic Era University",
+    "Pawan Joshi Tech Sangi",
+    "Pawan Joshi AWS",
+    "pwnjoshi",
+    "AWS Student Builder Group GEU",
+    "AI agents",
     "LangGraph",
+    "cloud engineer",
+    "AWS",
     "Next.js",
     "Dehradun",
     "India",
   ],
   author: {
     name: "Pawan Joshi",
-    email: "me@joshipawan.com.np",
+    email: "me@pawanjoshi.dev",
     location: "Dehradun, India",
-    bio: "Software engineer specializing in autonomous AI agents and cloud infrastructure.",
-    tagline:
-      "Co-Founder at Tech Sangi, founding leader of the AWS Student Builder Group at Graphic Era University, and former AI Engineering Intern at Infosys Springboard.",
-    avatar: "/avatar.jpg",
+    bio: "Student at Graphic Era University building AI agents and cloud systems.",
+    tagline: "Student at Graphic Era University. Engineering at Tech Sangi.",
   },
   links: {
     github: "https://github.com/pwnjoshi",
@@ -33,17 +36,58 @@ export const siteConfig = {
     devto: "https://dev.to/pwnjoshi",
     awsCommunity: "https://builder.aws.com/community/@pawanjoshidev",
     techSangi: "https://techsangi.com.np/",
-    email: "me@joshipawan.com.np",
+    email: "me@pawanjoshi.dev",
   },
   stats: [
-    { value: "450+", label: "Builders Reached" },
-    { value: "300+", label: "Students Mentored" },
-    { value: "4x", label: "Cloud & AI Certified" },
-    { value: "8+", label: "Production Products" },
+    { value: "500+", label: "Students mentored" },
   ],
 };
 
+export const focusAreas = [
+  {
+    title: "Autonomous AI agents",
+    description:
+      "Stateful LangGraph agents with tool use, checkpoints, tracing, and memory strategies that survive long, messy tasks.",
+  },
+  {
+    title: "Cloud infrastructure",
+    description:
+      "Serverless and EC2-based systems on AWS, designed for low latency, clear failure modes, and predictable cost.",
+  },
+  {
+    title: "Full-stack products",
+    description:
+      "React, Node.js, and PostgreSQL products with auth, billing, and deployment pipelines, shipped for real clients.",
+  },
+  {
+    title: "Community and teaching",
+    description:
+      "Hands-on cloud curricula and mentorship for hundreds of student builders across campus and online.",
+  },
+];
+
+export const education = [
+  {
+    id: "geu",
+    institution: "Graphic Era Deemed to be University",
+    location: "Dehradun, Uttarakhand, India",
+    detail: "Student. Founder of AWS Student Builder Group GEU.",
+  },
+];
+
 export const experience = [
+  {
+    id: "tech-sangi",
+    role: "Engineering",
+    company: "Tech Sangi",
+    period: "Nov 2024 — Present",
+    location: "Dehradun, India",
+    description:
+      "Lead engineering of cloud-native web systems, intelligent automation, and client platforms. Architected and deployed multiple production products, managing end-to-end full-stack architectures, payment gateways, and cloud deployment pipelines.",
+    skills: ["React", "Node.js", "AWS", "Stripe", "DevOps"],
+    credentialUrl: "https://techsangi.com.np/",
+    credentialLabel: "Visit Site",
+  },
   {
     id: "infosys",
     role: "AI Engineering Intern",
@@ -60,25 +104,13 @@ export const experience = [
   {
     id: "aws-sbg",
     role: "Founding Campus Leader",
-    company: "AWS Student Builder Group",
+    company: "AWS Student Builder Group GEU",
     period: "Nov 2025 — Present",
     location: "Graphic Era University",
     description:
-      "Founded the campus AWS builder group and designed hands-on cloud curriculums covering Amazon EC2, S3, IAM, CloudFront, Route 53, and CLF-C02 certification prep for 400+ members. Mentored peers on serverless architecture and production best practices.",
+      "Founded the campus AWS builder group and designed hands-on cloud curriculums covering Amazon EC2, S3, IAM, CloudFront, Route 53, and CLF-C02 certification prep for the campus community. Mentored peers on serverless architecture and production best practices.",
     skills: ["AWS EC2", "Amazon S3", "IAM", "CloudFront", "Serverless"],
     credentialUrl: "https://builder.aws.com/community/student-builder-groups",
-    credentialLabel: "Visit Site",
-  },
-  {
-    id: "tech-sangi",
-    role: "Co-Founder & Technical Lead",
-    company: "Tech Sangi Pvt. Ltd.",
-    period: "Nov 2024 — Present",
-    location: "Dehradun, India",
-    description:
-      "Lead engineering of cloud-native web systems, intelligent automation, and client platforms. Architected and deployed 8+ production products, managing end-to-end full-stack architectures, payment gateways, and cloud deployment pipelines.",
-    skills: ["React", "Node.js", "AWS", "Stripe", "DevOps"],
-    credentialUrl: "https://techsangi.com.np/",
     credentialLabel: "Visit Site",
   },
   {
@@ -100,7 +132,7 @@ export const experience = [
     period: "Aug 2025 — Sep 2025",
     location: "Virtual",
     description:
-      "Guided 300+ students through hands-on Google Cloud Platform architecture labs, GCP compute deployments, and skill badge pathways with active troubleshooting support.",
+      "Guided students through hands-on Google Cloud Platform architecture labs, GCP compute deployments, and skill badge pathways with active troubleshooting support.",
     skills: ["Google Cloud Platform", "Cloud Architecture", "Mentorship"],
     credentialUrl: null,
     credentialLabel: null,
@@ -114,22 +146,15 @@ export const projects = [
     category: "Cloud Platform",
     title: "AWS Student Builder Platform & Portal",
     description:
-      "Serverless campus platform built on AWS (S3, CloudFront, DynamoDB) serving 450+ registered builders across 200+ institutions in 35+ countries. Features multi-tenant Google OAuth & JWT auth, automated CLF-C02 certification verification, and sub-100ms API latency via DynamoDB GSIs.",
-    longDescription: `The AWS Student Builder Platform was designed to solve a real problem: how do you scale a campus cloud-learning community beyond one institution? The answer was to build a production-grade, serverless portal from scratch.
-
-**The Problem**: Running AWS workshops for 400+ students at Graphic Era University required a registration, verification, and resource delivery system that could handle concurrent users, store data reliably, and serve assets globally — all at near-zero cost.
-
-**Architecture**: The platform is built on a fully serverless stack. Static assets and the React frontend are served from CloudFront + S3, achieving sub-100ms response times globally. DynamoDB handles user data with GSI-based queries for instant lookups. JWT-based auth with Google OAuth provides secure multi-tenant access without a traditional backend server.
-
-**Engineering Challenges**: 
-- Automated CLF-C02 certification verification required building a custom verification pipeline that cross-references Credly badge data
-- Scaling to 200+ institutions in 35+ countries with zero additional infrastructure cost
-- Designing DynamoDB schema with proper GSIs to avoid table scans`,
+      "Serverless campus platform built on AWS (S3, CloudFront, DynamoDB) serving student builders across many institutions and countries. Features multi-tenant Google OAuth and JWT auth, automated CLF-C02 certification verification, and fast lookups through DynamoDB secondary indexes.",
+    contribution: "Built the serverless registration, resource delivery, and certification verification workflows.",
+    architecture: "CloudFront and S3 serve the React frontend. DynamoDB stores builder records, and Google OAuth with JWTs supports sign-in.",
+    tradeoffs: "Secondary indexes support common lookups without scanning the table. A custom verification pipeline cross-references Credly badges.",
     metrics: [
-      "450+ registered builders",
-      "200+ institutions",
-      "35+ countries",
-      "Sub-100ms API latency",
+      "Serverless registration and resource delivery",
+      "Google OAuth with JWT sessions",
+      "Automated CLF-C02 certification verification",
+      "DynamoDB secondary indexes for fast lookups",
     ],
     skills: ["React", "Node.js", "AWS S3", "CloudFront", "DynamoDB"],
     liveUrl: "https://aws-sbg-piet-official-site.vercel.app/",
@@ -143,16 +168,9 @@ export const projects = [
     title: "Autonomous Cognitive Engine",
     description:
       "Multi-step agent framework in LangGraph designed to decompose and execute complex engineering tasks autonomously with ~80% accuracy. Overcame context-overflow crashes on jobs with 10,000+ log lines by engineering an in-memory virtual file system, with LangSmith tracing pushing run reliability past 70%.",
-    longDescription: `This project was built during my AI Engineering internship at Infosys Springboard, with the goal of building a production-grade agentic system that could autonomously handle complex, multi-step engineering tasks.
-
-**The Problem**: Existing agent frameworks failed on real-world engineering tasks — either losing context mid-task, hallucinating tool calls, or crashing when processing large codebases.
-
-**Architecture**: Built on LangGraph's stateful graph execution model, the system implements a ReAct (Reasoning + Acting) loop where the agent reasons about the current state, selects tools, executes actions, and updates its plan based on results. The key innovation is an **in-memory virtual file system (VFS)** that acts as a scratchpad — the agent reads/writes intermediate results to VFS instead of bloating the LLM context window.
-
-**Engineering Challenges**:
-- Context overflow: jobs with 10,000+ log lines would crash the LLM context window → solved with VFS chunking
-- Multi-step reliability: early versions failed ~60% of the time due to tool-call errors → LangSmith tracing revealed the failure patterns, allowing targeted fixes that pushed reliability past 70%
-- State management: LangGraph's checkpoint system required careful schema design to handle partial task completion and resume`,
+    contribution: "Built a stateful LangGraph agent and an in-memory file system to handle large task inputs.",
+    architecture: "LangGraph coordinates reasoning and tool calls. Intermediate results live in a virtual file system, and LangSmith traces the runs.",
+    tradeoffs: "Storing large intermediate outputs outside the model context helped prevent overflow. Checkpoints let multi-step work resume after a failed step.",
     metrics: [
       "~80% task accuracy",
       ">70% production reliability",
@@ -172,18 +190,9 @@ export const projects = [
     title: "ARTAMS: Real-Time Attendance Engine",
     description:
       "High-throughput attendance and verification system written in C using in-memory hash tables for O(1) lookups and Haversine formula GPS anti-spoofing algorithms. Deployed on an AWS EC2 instance (Ubuntu 24.04) behind Nginx via FastCGI REST APIs to handle concurrent verification requests.",
-    longDescription: `ARTAMS (Automated Real-Time Attendance Management System) was built to solve a specific problem: GPS spoofing attacks were allowing students to mark attendance from outside campus. 
-
-**The Problem**: Existing attendance systems had no verification layer. A student could fake their GPS location and mark attendance remotely. The system needed to handle hundreds of concurrent verification requests with sub-second response times.
-
-**Architecture**: Written in C for maximum performance, ARTAMS uses in-memory hash tables for O(1) student lookups — a database query would have been too slow for real-time verification. The GPS anti-spoofing layer uses the Haversine formula to calculate the great-circle distance between the student's reported location and the classroom's GPS coordinates.
-
-**Deployment**: Running on AWS EC2 (Ubuntu 24.04) behind Nginx, exposed via FastCGI REST APIs. Nginx handles TLS termination and load distribution, while the C process handles the core verification logic.
-
-**Engineering Decisions**:
-- C over Python/Go: the verification hot path needed microsecond-level performance
-- Hash tables over B-trees: student ID lookups are point queries, not range scans
-- Haversine over Euclidean distance: Earth's curvature matters at campus-sized distances`,
+    contribution: "Built the C verification path for attendance and campus-distance checks.",
+    architecture: "The engine runs on EC2 behind Nginx and FastCGI. In-memory hash tables serve student lookups, and the Haversine formula calculates distance from a classroom.",
+    tradeoffs: "Hash tables suit point lookups by student ID. Geodesic distance checks let the engine enforce a campus radius.",
     metrics: [
       "O(1) lookup performance",
       "GPS anti-spoofing via Haversine",
@@ -191,8 +200,8 @@ export const projects = [
       "EC2 + Nginx deployment",
     ],
     skills: ["C", "AWS EC2", "Nginx", "FastCGI", "Data Structures"],
-    liveUrl: "https://joshipawan.com.np/Pawan_Joshi_Resume.pdf",
-    sourceUrl: "https://github.com/pwnjoshi",
+    liveUrl: "https://github.com/pwnjoshi/artams-project",
+    sourceUrl: "https://github.com/pwnjoshi/artams-project",
     featured: true,
   },
   {
@@ -202,18 +211,11 @@ export const projects = [
     title: "Tech Sangi SaaS Platform",
     description:
       "Production-grade SaaS platform powering Tech Sangi Pvt. Ltd. Supports client delivery pipelines, community resources, and internal tooling. Architected with scalable cloud primitives, secure authentication, Stripe billing, and continuous deployment workflows.",
-    longDescription: `Tech Sangi's platform is the operational backbone of the company — it powers client project delivery, community resources, billing, and internal engineering tooling.
-
-**The Problem**: Managing 8+ simultaneous client projects across a small team required a unified platform for project tracking, client communication, resource delivery, and billing — without paying for expensive SaaS tools.
-
-**Architecture**: Built on React + Node.js with PostgreSQL for structured data. AWS powers the cloud infrastructure: EC2 for compute, S3 for asset storage, and CloudFront for CDN. Stripe handles all billing flows including subscriptions, one-time payments, and invoice generation.
-
-**Engineering Highlights**:
-- Multi-tenant architecture: each client organization has isolated data with row-level security
-- Stripe webhooks: payment events are processed asynchronously to handle retries and failures
-- Continuous deployment: GitHub Actions → AWS CodeDeploy → zero-downtime blue-green deployments`,
+    contribution: "Led engineering for client delivery, internal tooling, and billing at Tech Sangi.",
+    architecture: "React and Node.js handle the application, PostgreSQL stores records, and Stripe handles billing. AWS services host the platform.",
+    tradeoffs: "Row-level security isolates tenant data. Billing webhooks process events asynchronously, and blue-green deployment supports releases without downtime.",
     metrics: [
-      "8+ production products",
+      "Production client products",
       "Stripe billing integration",
       "Multi-tenant architecture",
       "Zero-downtime deployments",
@@ -341,3 +343,115 @@ export const techStack = {
     ],
   },
 };
+
+// More public work from github.com/pwnjoshi. Descriptions are summarized from each repository's README.
+export const moreProjects = [
+  {
+    id: "aws-signal",
+    title: "AWS Signal",
+    category: "AI Agents · Cloud",
+    description:
+      "Autonomous cloud intelligence platform that monitors AWS release feeds, removes duplicates with hashing, scores developer impact, and offers a voice copilot. Built on Amazon Bedrock, Polly, Lambda, and SES.",
+    tech: ["TypeScript", "React", "Amazon Bedrock", "AWS Lambda"],
+    repoUrl: "https://github.com/pwnjoshi/AWS-Signal-Agent",
+    liveUrl: null,
+  },
+  {
+    id: "relay",
+    title: "RELAY",
+    category: "AI Voice Platform",
+    description:
+      "Autonomous telephony and voice operations platform that answers customer calls, triages inquiries, and schedules appointments using website-grounded retrieval and Amazon Bedrock.",
+    tech: ["TypeScript", "Amazon Bedrock", "RAG", "Google OAuth"],
+    repoUrl: "https://github.com/pwnjoshi/RELAY",
+    liveUrl: null,
+  },
+  {
+    id: "trustfix",
+    title: "TrustFix",
+    category: "AI Agents · Security",
+    description:
+      "Google ADK agent for customer security reviews. It turns requirements into controls, inspects a Google Cloud project, proposes the smallest safe fix, waits for approval, then verifies the result.",
+    tech: ["Google ADK", "Google Cloud", "Cloud Run"],
+    repoUrl: "https://github.com/pwnjoshi/TrustFix",
+    liveUrl: "https://trustfix-app-1087269593372.us-central1.run.app/",
+  },
+  {
+    id: "keyhole",
+    title: "Keyhole",
+    category: "AI Agents · Security",
+    description:
+      "Runtime security layer for AI agents. It intercepts tool calls across enterprise systems, redacts sensitive data on the server, and produces zero-knowledge proofs that the agent stayed within its policy scope.",
+    tech: ["TypeScript", "Zero-knowledge proofs", "Supabase", "AWS App Runner"],
+    repoUrl: "https://github.com/pwnjoshi/KeyHole",
+    liveUrl: "https://keyhole.techsangi.com.np",
+  },
+  {
+    id: "voiceaid",
+    title: "VoiceAid",
+    category: "Social Impact",
+    description:
+      "Voice-first AI assistant for people who cannot read or have limited digital literacy. AWS 10,000 AIdeas finalist in the Social Impact category, built with a four-person team.",
+    tech: ["JavaScript", "Voice AI", "AWS"],
+    repoUrl: "https://github.com/pwnjoshi/VoiceAid",
+    liveUrl: null,
+  },
+  {
+    id: "hackflow",
+    title: "HackFlow AI",
+    category: "Full-Stack",
+    description:
+      "Workspace manager for hackathon teams with AI-generated timelines, risk scoring, JWT authentication, GitHub integration, and team chat with workspace context.",
+    tech: ["JavaScript", "JWT", "GitHub API"],
+    repoUrl: "https://github.com/pwnjoshi/Hacks-For-Hackers",
+    liveUrl: null,
+  },
+  {
+    id: "ichatworld",
+    title: "iChatWorld",
+    category: "Real-Time",
+    description:
+      "Disposable collaboration rooms with live chat, peer-to-peer file transfer over WebRTC, and a shared whiteboard. No accounts and no tracking.",
+    tech: ["TypeScript", "React", "WebRTC", "Socket.IO"],
+    repoUrl: "https://github.com/pwnjoshi/iChatWorld",
+    liveUrl: null,
+  },
+  {
+    id: "meetmind",
+    title: "MeetMind",
+    category: "Mobile",
+    description:
+      "Native iOS meeting recorder with on-device transcription, local summaries, action items, and export. Recordings and notes stay on the device.",
+    tech: ["Swift", "SwiftUI", "SwiftData"],
+    repoUrl: "https://github.com/pwnjoshi/MeetMind",
+    liveUrl: null,
+  },
+  {
+    id: "kamaishield",
+    title: "KamaiShield",
+    category: "Hackathon",
+    description:
+      "AI-enabled parametric income protection for last-mile delivery riders in India, built for the Guidewire DEVTrails 2026 university hackathon.",
+    tech: ["AI", "Insurance tech"],
+    repoUrl: "https://github.com/pwnjoshi/KamaiShield",
+    liveUrl: null,
+  },
+  {
+    id: "aws-cloud-club-cms",
+    title: "AWS Student Builder Group CMS",
+    category: "Community Platform",
+    description:
+      "Public website and member portal for the AWS Student Builder Group at Graphic Era University, with a Node.js and Prisma backend.",
+    tech: ["React", "Node.js", "Prisma", "Tailwind CSS"],
+    repoUrl: "https://github.com/pwnjoshi/AWS-Cloud-Club-CMS",
+    liveUrl: "https://aws-cloud-club-cms.vercel.app",
+  },
+];
+
+// Headline numbers: one hand-written figure plus counts derived from the data above.
+export const stats = [
+  ...siteConfig.stats,
+  { value: String(certifications.length), label: "Certifications" },
+  { value: String(projects.length + moreProjects.length), label: "Projects built" },
+];
+

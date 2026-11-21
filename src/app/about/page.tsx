@@ -1,202 +1,117 @@
 import type { Metadata } from "next";
+import { breadcrumbSchema, faqSchema, faqs, pageMetadata, personSummary, webPageSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  experience,
-  certifications,
-  techStack,
-  siteConfig,
-} from "@/lib/content";
-import { ArrowUpRight } from "@/components/Icons";
+import portrait from "../../../public/hero-avatar.png";
+import { PageHeader } from "@/components/PageHeader";
+import { SectionHeading } from "@/components/SectionHeading";
+import { ExperienceTimeline } from "@/components/ExperienceTimeline";
+import { CertificationGrid } from "@/components/CertificationGrid";
+import { SkillsGrid } from "@/components/SkillsGrid";
+import { ArrowRight, ChevronRight, Download } from "@/components/Icons";
+import { certifications, education, experience, siteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Software engineer specializing in autonomous AI agents and cloud infrastructure. Co-Founder at Tech Sangi, founding leader of AWS Student Builder Group.",
-};
+    "About Pawan Joshi: student at Graphic Era University in Dehradun, India, building AI agents and cloud systems, engineering at Tech Sangi, and founder of AWS Student Builder Group GEU.",
+  path: "/about",
+  ogType: "profile",
+});
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 pt-32 pb-24">
-      {/* Intro */}
-      <div className="mb-20">
-        <p className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-4">
-          About
-        </p>
-        <h1 className="text-3xl font-medium text-neutral-100 tracking-tight mb-6">
-          Pawan Joshi
-        </h1>
-        <div className="space-y-4 text-neutral-500 leading-relaxed max-w-2xl">
-          <p>
-            I&apos;m a software engineer based in Dehradun, India, focused on
-            building autonomous AI systems and cloud-native infrastructure. My
-            work sits at the intersection of agent frameworks, distributed
-            systems, and production engineering.
-          </p>
-          <p>
-            Currently co-founding{" "}
-            <Link
-              href="https://techsangi.com.np/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-neutral-200 transition-colors underline underline-offset-2 decoration-neutral-700"
-            >
-              Tech Sangi
-            </Link>
-            , leading the AWS Student Builder Group at Graphic Era University,
-            and exploring what it means to build agents that can actually do
-            useful work reliably.
-          </p>
-          <p>
-            I believe in building things in public, writing about what I learn,
-            and making cloud and AI education accessible to students across
-            India.
-          </p>
-        </div>
-        <div className="flex gap-4 mt-6">
-          <Link
-            href={siteConfig.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
-          >
-            GitHub <ArrowUpRight size={10} />
-          </Link>
-          <Link
-            href={siteConfig.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
-          >
-            LinkedIn <ArrowUpRight size={10} />
-          </Link>
-          <Link
-            href={siteConfig.links.twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
-          >
-            Twitter <ArrowUpRight size={10} />
-          </Link>
-          <Link
-            href={siteConfig.links.awsCommunity}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
-          >
-            AWS Community <ArrowUpRight size={10} />
-          </Link>
-        </div>
-      </div>
+    <>
+      <JsonLd nodes={[webPageSchema({ path: "/about", name: "About Pawan Joshi", description: personSummary, type: "ProfilePage" }), breadcrumbSchema([{ name: "About", path: "/about" }]), faqSchema()]} />
+      <PageHeader eyebrow="About" title="About" />
 
-      {/* Experience */}
-      <section className="mb-20">
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-8">
-          01 — Experience & Leadership
-        </h2>
-        <div className="space-y-10">
-          {experience.map((exp) => (
-            <div key={exp.id} className="grid sm:grid-cols-[180px,1fr] gap-4">
-              <div className="shrink-0">
-                <p className="text-xs font-mono text-neutral-700 leading-relaxed">
-                  {exp.period}
-                </p>
-                <p className="text-xs text-neutral-700 mt-0.5">{exp.location}</p>
-              </div>
-              <div>
-                <div className="flex items-start justify-between gap-4 mb-1">
-                  <div>
-                    <h3 className="text-sm font-medium text-neutral-200">
-                      {exp.role}
-                    </h3>
-                    <p className="text-sm text-neutral-500">{exp.company}</p>
-                  </div>
-                  {exp.credentialUrl && (
-                    <Link
-                      href={exp.credentialUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-neutral-700 hover:text-neutral-500 transition-colors shrink-0"
-                    >
-                      {exp.credentialLabel}
-                      <ArrowUpRight size={9} />
-                    </Link>
-                  )}
-                </div>
-                <p className="text-sm text-neutral-600 leading-relaxed mt-2 mb-3">
-                  {exp.description}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {exp.skills.map((skill) => (
-                    <span key={skill} className="tag">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="mb-20">
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-8">
-          03 — Certifications & Credentials
-        </h2>
-        <div className="space-y-4">
-          {certifications.map((cert) => (
-            <div
-              key={cert.id}
-              className="flex items-start justify-between gap-4 py-4 border-b border-neutral-900 last:border-0"
-            >
-              <div>
-                <p className="text-xs text-neutral-700 mb-1">{cert.category}</p>
-                <h3 className="text-sm font-medium text-neutral-300">
-                  {cert.title}
-                </h3>
-                <p className="text-xs text-neutral-600 mt-0.5">
-                  {cert.issuer} · {cert.issued}
-                </p>
-              </div>
-              <Link
-                href={cert.credentialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs text-neutral-700 hover:text-neutral-500 transition-colors shrink-0"
-              >
-                Verify
-                <ArrowUpRight size={9} />
+      <section className="container-x pb-4 pt-4 md:pb-10 md:pt-10" aria-label="Profile">
+        <div className="widget fade-up flex flex-col items-center gap-4 p-6 text-center md:flex-row md:gap-8 md:p-10 md:text-left">
+          <span className="relative size-24 shrink-0 overflow-hidden rounded-full border border-line-strong shadow-[var(--shadow)] md:size-36">
+            <Image src={portrait} alt="Portrait of Pawan Joshi" fill priority sizes="144px" className="object-cover object-[50%_20%]" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-2xl font-semibold tracking-tight text-fg md:text-4xl md:font-medium" style={{ letterSpacing: "-0.03em" }}>
+              Pawan Joshi
+            </h2>
+            <p className="mt-1 text-[15px] text-subtle md:text-lg">{siteConfig.author.tagline}</p>
+            <div className="mt-5 flex flex-wrap justify-center gap-2.5 md:justify-start">
+              <a href="/Pawan_Joshi_Resume.pdf" download className="btn btn-primary !rounded-full px-5">
+                <Download size={16} /> Résumé
+              </a>
+              <Link href="/contact" className="btn btn-secondary !rounded-full px-5">
+                Contact <ArrowRight size={16} />
               </Link>
             </div>
-          ))}
+          </div>
+        </div>
+
+        <div className="mt-6 max-w-3xl space-y-4 text-base leading-relaxed text-muted md:mt-12 md:text-xl" data-reveal>
+          <p>
+            I&apos;m a student at Graphic Era University in Dehradun, India. I build AI agents and
+            cloud systems, and I&apos;m engineering at{" "}
+            <a className="text-accent hover:underline" href={siteConfig.links.techSangi} target="_blank" rel="noopener noreferrer">
+              Tech Sangi
+            </a>
+            .
+          </p>
+          <p>
+            I founded AWS Student Builder Group GEU and have mentored 500+ students in cloud and AI.
+            I write about what I learn and build in public.
+          </p>
+        </div>
+      </section>
+      <section className="section" aria-labelledby="experience-title">
+        <div className="container-x" data-reveal>
+          <SectionHeading id="experience-title" title="Experience" />
+          <ExperienceTimeline roles={experience} />
         </div>
       </section>
 
-      {/* Tech Stack */}
-      <section>
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-8">
-          05 — Technical Stack
-        </h2>
-        <div className="space-y-8">
-          {Object.entries(techStack).map(([category, data]) => (
-            <div key={category} className="grid sm:grid-cols-[200px,1fr] gap-4">
-              <div>
-                <h3 className="text-sm font-medium text-neutral-400">
-                  {category}
-                </h3>
-                <p className="text-xs text-neutral-700 mt-1">{data.description}</p>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {data.items.map((item) => (
-                  <span key={item} className="tag">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+      <section className="section" aria-labelledby="education-title">
+        <div className="container-x" data-reveal>
+          <SectionHeading id="education-title" title="Education" />
+          <ul className="card divide-y divide-line overflow-hidden rounded-2xl">
+            {education.map((item) => (
+              <li key={item.id} className="px-5 py-4">
+                <h3 className="text-[15px] font-medium text-fg">{item.institution}</h3>
+                <p className="text-sm text-subtle">{item.location}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
-    </div>
+
+      <section id="certifications" className="section" aria-labelledby="certs-title">
+        <div className="container-x" data-reveal>
+          <SectionHeading id="certs-title" title="Certifications" />
+          <CertificationGrid items={certifications} />
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="skills-title">
+        <div className="container-x" data-reveal>
+          <SectionHeading id="skills-title" title="Skills" />
+          <SkillsGrid />
+        </div>
+      </section>
+      <section className="section" aria-labelledby="faq-title">
+        <div className="container-x" data-reveal>
+          <SectionHeading id="faq-title" title="Questions" />
+          <div className="widget divide-y divide-line overflow-hidden">
+            {faqs.map((item) => (
+              <details key={item.q} className="group/faq">
+                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 text-[15px] font-medium text-fg md:text-lg">
+                  <h3>{item.q}</h3>
+                  <ChevronRight size={18} className="shrink-0 text-subtle transition group-open/faq:rotate-90" />
+                </summary>
+                <p className="px-5 pb-5 text-[15px] leading-relaxed text-muted md:text-base">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

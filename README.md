@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# pawanjoshi.dev
 
-## Getting Started
+Personal portfolio and blog for Pawan Joshi. Built with Next.js, TypeScript, Tailwind CSS v4, and MDX.
 
-First, run the development server:
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run test     # type-check, lint, and production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | Where |
+| --- | --- |
+| Bio, stats, links, experience, projects, certifications, skills, education | `src/lib/content.ts` |
+| "Now" summary on the home page | `src/data/now.ts` |
+| Blog posts (MDX with front matter) | `content/blog/*.mdx` |
+| Résumé PDF | `public/Pawan_Joshi_Resume.pdf` |
+| Colors and theme tokens | `src/app/globals.css` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Blog front matter: `title`, `date` (YYYY-MM-DD), `description`, `tags`, `coverImage`, `canonicalUrl`.
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+- `RESEND_API_KEY`: required for the contact form to deliver email. Without it, the form shows the email fallback.
+- `CONTACT_FROM` (optional): sender, for example `Pawan Joshi <contact@pawanjoshi.dev>`, once the domain is verified in Resend. Defaults to Resend's test sender.
+- `CONTACT_TO` (optional): where messages go. Defaults to `me@pawanjoshi.dev`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## SEO notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Blog posts set their canonical URL to this site. When cross-posting to Dev.to, set the Dev.to post's canonical URL to `https://pawanjoshi.dev/blog/<slug>`.
+- RSS feed: `/feed.xml`. Sitemap: `/sitemap.xml`. Web app manifest: `/manifest.webmanifest`.
+- AI assistants: `/llms.txt` (summary) and `/llms-full.txt` (full profile). `robots.txt` explicitly allows AI crawlers.
+- Structured data lives in `src/lib/seo.ts`: one Person (`/#person`) that every page, article and project links to.
+- Keep facts consistent: the summary in `src/lib/seo.ts` should match your LinkedIn, GitHub and Dev.to bios.
 
-## Deploy on Vercel
+## Deploy (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push the repo to GitHub and import it at vercel.com/new (framework: Next.js, no extra settings).
+2. Add environment variables: `RESEND_API_KEY`, and optionally `CONTACT_FROM`, `CONTACT_TO`, `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`.
+3. In Project → Domains, add `pawanjoshi.dev` and `www.pawanjoshi.dev` (redirect www to the apex).
+4. After the first deploy, verify the site in Google Search Console and Bing Webmaster Tools, then submit `https://pawanjoshi.dev/sitemap.xml` in both.

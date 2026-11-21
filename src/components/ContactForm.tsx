@@ -1,9 +1,16 @@
 "use client";
 import { useState } from "react";
+import { Check } from "./Icons";
+import { siteConfig } from "@/lib/content";
+import { EmojiPicker } from "./emoji-picker/EmojiPicker";
+
+const fieldClass =
+  "w-full rounded-xl border border-transparent bg-fg/[0.05] px-4 py-3 text-[15px] text-fg placeholder:text-subtle transition focus:border-accent focus:bg-surface focus:outline-none focus:ring-4 focus:ring-accent/15";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
+  const [emojiOpen, setEmojiOpen] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -16,7 +23,7 @@ export function ContactForm() {
       });
       if (res.ok) {
         setStatus("sent");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "", company: "" });
       } else {
         setStatus("error");
       }
@@ -27,16 +34,18 @@ export function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="py-8">
-        <p className="text-sm text-neutral-400 mb-2">Message sent.</p>
-        <p className="text-xs text-neutral-600">
-          I&apos;ll get back to you within a few days.
-        </p>
+      <div className="rounded-xl border border-line bg-accent-soft p-8 text-center" role="status">
+        <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent text-accent-fg">
+          <Check size={22} />
+        </span>
+        <p className="mt-4 text-lg font-medium text-fg">Message sent</p>
+        <p className="mt-1 text-sm text-muted">Thanks for reaching out. I&apos;ll get back to you soon.</p>
         <button
+          type="button"
           onClick={() => setStatus("idle")}
-          className="mt-4 text-xs text-neutral-600 hover:text-neutral-400 transition-colors underline underline-offset-2"
+          className="mt-5 text-sm text-accent underline underline-offset-4"
         >
-          Send another
+          Send another message
         </button>
       </div>
     );
@@ -44,62 +53,82 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div>
-        <label className="block text-xs text-neutral-600 mb-2 tracking-wide uppercase">
-          Name
-        </label>
+      <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="contact-company">Company</label>
         <input
-          type="text"
-          required
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="w-full bg-neutral-900 border border-neutral-800 rounded px-3 py-2.5 text-sm text-neutral-200 placeholder-neutral-700 focus:outline-none focus:border-neutral-600 transition-colors"
-          placeholder="Your name"
+          id="contact-company"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.company}
+          onChange={(e) => setForm({ ...form, company: e.target.value })}
         />
       </div>
-      <div>
-        <label className="block text-xs text-neutral-600 mb-2 tracking-wide uppercase">
-          Email
-        </label>
-        <input
-          type="email"
-          required
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="w-full bg-neutral-900 border border-neutral-800 rounded px-3 py-2.5 text-sm text-neutral-200 placeholder-neutral-700 focus:outline-none focus:border-neutral-600 transition-colors"
-          placeholder="you@example.com"
-        />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-fg">Name</label>
+          <input
+            id="contact-name"
+            autoComplete="name"
+            type="text"
+            required
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className={fieldClass}
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-fg">Email</label>
+          <input
+            id="contact-email"
+            autoComplete="email"
+            type="email"
+            required
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className={fieldClass}
+            placeholder="you@company.com"
+          />
+        </div>
       </div>
       <div>
-        <label className="block text-xs text-neutral-600 mb-2 tracking-wide uppercase">
-          Message
-        </label>
+        <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-fg">Message</label>
         <textarea
+          id="contact-message"
           required
           rows={6}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          className="w-full bg-neutral-900 border border-neutral-800 rounded px-3 py-2.5 text-sm text-neutral-200 placeholder-neutral-700 focus:outline-none focus:border-neutral-600 transition-colors resize-none"
-          placeholder="Tell me about your project, opportunity, or question..."
+          className={`${fieldClass} resize-y`}
+          placeholder="Tell me about the role, project, or question…"
         />
+        <button
+          type="button"
+          aria-expanded={emojiOpen}
+          aria-controls="contact-emoji"
+          onClick={() => setEmojiOpen((open) => !open)}
+          className="mt-2 inline-flex min-h-10 items-center gap-2 rounded-lg px-2 text-sm text-subtle transition hover:bg-surface-2 hover:text-fg"
+        >
+          <span aria-hidden="true">🙂</span> {emojiOpen ? "Hide emoji" : "Add emoji"}
+        </button>
+        <div id="contact-emoji" hidden={!emojiOpen} className="mt-2 rounded-xl border border-line bg-surface p-3">
+          <EmojiPicker
+            label="Add an emoji to your message"
+            onSelect={(emoji) => setForm((current) => ({ ...current, message: current.message + emoji }))}
+          />
+        </div>
       </div>
       {status === "error" && (
-        <p className="text-xs text-red-500">
+        <p role="alert" className="text-sm text-red-600 dark:text-red-400">
           Something went wrong. Please email me directly at{" "}
-          <a
-            href="mailto:me@joshipawan.com.np"
-            className="underline underline-offset-2"
-          >
-            me@joshipawan.com.np
+          <a href={`mailto:${siteConfig.author.email}`} className="underline underline-offset-4">
+            {siteConfig.author.email}
           </a>
+          .
         </p>
       )}
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="w-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-sm text-neutral-300 hover:text-neutral-100 py-2.5 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {status === "sending" ? "Sending..." : "Send Message"}
+      <button type="submit" disabled={status === "sending"} className="btn btn-primary !min-h-12 w-full !rounded-full disabled:cursor-wait disabled:opacity-60 sm:w-auto sm:px-7">
+        {status === "sending" ? "Sending…" : "Send message"}
       </button>
     </form>
   );

@@ -1,7 +1,7 @@
 ---
 title: "EC2 SSH Not Connecting? Here Are the 5 Things That Were Wrong (And How I Fixed Them)"
 date: "2026-05-23"
-description: "I spent 3 hours staring at this error my first week with AWS:  \"Permission denied (publickey)\"  My..."
+description: "Five causes of the \"Permission denied (publickey)\" error on EC2, from the wrong key file and username to security groups and private IPs, with a fix for each."
 tags: ["aws", "ec2", "devops", "troubleshooting", "linux"]
 author: "Pawan Joshi"
 coverImage: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F78pfal7eilf0jod6i6hh.jpg"
@@ -19,8 +19,7 @@ Here are the 5 things that were wrong (and how I fixed each one):
 
 ---
 
-1. Wrong .pem file
-
+## 1. Wrong .pem file
 I had downloaded the key pair but was pointing to the wrong file path in my command. Sounds obvious. When you're new, it's not.
 
 Fix: always use the full absolute path.
@@ -30,8 +29,7 @@ ssh -i ~/Downloads/my-key.pem ec2-user@<public-ip-or-dns>
 
 ---
 
-2. Wrong username
-
+## 2. Wrong username
 Different AMIs use different default usernames. I kept typing "ubuntu" on an Amazon Linux instance.
 
 Amazon Linux → ec2-user
@@ -43,8 +41,7 @@ This one catches almost everyone.
 
 ---
 
-3. .pem file permissions too open
-
+## 3. .pem file permissions too open
 SSH refuses to use a key file that other users can read.
 
 Fix:
@@ -56,16 +53,14 @@ Run that once and you'll never see "WARNING: UNPROTECTED PRIVATE KEY FILE!" agai
 
 ---
 
-4. Security group blocking port 22
-
+## 4. Security group blocking port 22
 I'd launched the instance but never added an inbound rule for SSH. The connection wasn't being refused — it was being silently dropped at the firewall level.
 
 Fix: go to EC2 → Security Groups → Inbound Rules → add SSH (port 22) from your IP. Not 0.0.0.0/0 — just your IP. Keep it tight.
 
 ---
 
-5. Using the wrong IP
-
+## 5. Using the wrong IP
 I was copying the Private IP from the console instead of the Public IPv4 address. Private IPs only work if you're inside the same VPC.
 
 Fix: use the Public IPv4 DNS or Public IP shown in the instance details.

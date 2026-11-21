@@ -1,183 +1,141 @@
 import type { Metadata } from "next";
+import { breadcrumbSchema, pageMetadata, personSummary, webPageSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
-import { siteConfig, experience, certifications, projects, techStack } from "@/lib/content";
-import { ArrowUpRight } from "@/components/Icons";
+import { PageHeader } from "@/components/PageHeader";
+import { ExperienceTimeline } from "@/components/ExperienceTimeline";
+import { Download, GitHub, LinkedIn, Mail, MapPin } from "@/components/Icons";
+import { certifications, education, experience, projects, siteConfig, stats, techStack } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Résumé",
-  description: "Pawan Joshi — Software engineer specializing in autonomous AI agents and cloud infrastructure.",
-};
+  description:
+    "Résumé of Pawan Joshi: experience at Tech Sangi and Infosys Springboard, AI and cloud projects, certifications and skills.",
+  path: "/resume",
+  ogType: "profile",
+});
+
+function ResumeSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="grid gap-4 border-t border-line py-10 md:grid-cols-[180px_1fr] md:gap-10">
+      <h2 className="eyebrow">{title}</h2>
+      <div>{children}</div>
+    </section>
+  );
+}
 
 export default function ResumePage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 pt-32 pb-24">
-      <div className="mb-10 flex items-start justify-between gap-6">
-        <div>
-          <p className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-3">
-            Résumé
-          </p>
-          <h1 className="text-3xl font-medium text-neutral-100 tracking-tight mb-2">
-            Pawan Joshi
-          </h1>
-          <p className="text-sm text-neutral-500">
-            Software Engineer · AI & Cloud Infrastructure
-          </p>
-          <p className="text-xs text-neutral-700 mt-1">
-            Dehradun, India · me@joshipawan.com.np
-          </p>
-        </div>
-        <a
-          href="/Pawan_Joshi_Resume.pdf"
-          download
-          className="shrink-0 flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-300 border border-neutral-800 hover:border-neutral-700 rounded px-3 py-2 transition-colors"
+    <>
+      <JsonLd nodes={[webPageSchema({ path: "/resume", name: "Résumé of Pawan Joshi", description: personSummary, type: "ProfilePage" }), breadcrumbSchema([{ name: "Résumé", path: "/resume" }])]} />
+      <div className="no-print">
+        <PageHeader
+          eyebrow="Résumé"
+          title="Pawan Joshi"
+          actions={
+            <>
+              <a href="/Pawan_Joshi_Resume.pdf" download className="btn btn-primary">
+                <Download size={16} /> Download PDF
+              </a>
+              <Link href="/contact" className="btn btn-secondary">Contact</Link>
+            </>
+          }
         >
-          Download PDF
-          <ArrowUpRight size={10} />
-        </a>
+          <p>Student · AI agents and cloud systems</p>
+        </PageHeader>
       </div>
 
-      {/* Summary */}
-      <section className="mb-10 pb-10 border-b border-neutral-900">
-        <p className="text-sm text-neutral-500 leading-relaxed max-w-2xl">
-          Software engineer specializing in autonomous AI agents and cloud
-          infrastructure. Co-Founder at Tech Sangi Pvt. Ltd., founding leader of
-          the AWS Student Builder Group at Graphic Era University, and former AI
-          Engineering Intern at Infosys Springboard. Track record building
-          production systems across LangGraph agent frameworks, serverless AWS
-          architectures, and full-stack SaaS platforms.
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-          {siteConfig.stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="text-xl font-medium text-neutral-200 tracking-tight">
-                {stat.value}
-              </p>
-              <p className="text-xs text-neutral-700 mt-0.5">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <div className="container-x print-plain pb-10 pt-4 md:py-14">
+        <div className="mx-auto max-w-4xl">
+          <header className="hidden print:block">
+            <p className="text-3xl font-bold">Pawan Joshi</p>
+            <p>Student · AI agents and cloud systems</p>
+          </header>
 
-      {/* Experience */}
-      <section className="mb-10 pb-10 border-b border-neutral-900">
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-6">
-          Experience
-        </h2>
-        <div className="space-y-8">
-          {experience.map((exp) => (
-            <div key={exp.id}>
-              <div className="flex items-start justify-between gap-4 mb-1">
-                <div>
-                  <h3 className="text-sm font-medium text-neutral-200">
-                    {exp.role}
-                  </h3>
-                  <p className="text-sm text-neutral-500">{exp.company}</p>
+          <ul className="mb-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+            <li className="inline-flex items-center gap-2"><Mail size={15} /> <a href={`mailto:${siteConfig.author.email}`} className="hover:text-fg">{siteConfig.author.email}</a></li>
+            <li className="inline-flex items-center gap-2"><MapPin size={15} /> {siteConfig.author.location}</li>
+            <li className="inline-flex items-center gap-2"><GitHub size={15} /> <a href={siteConfig.links.github} className="hover:text-fg">github.com/pwnjoshi</a></li>
+            <li className="inline-flex items-center gap-2"><LinkedIn size={15} /> <a href={siteConfig.links.linkedin} className="hover:text-fg">linkedin.com/in/pwnjoshi</a></li>
+          </ul>
+
+          <ResumeSection title="Summary">
+            <p className="leading-relaxed text-muted">
+              Student at Graphic Era University building AI agents and cloud systems. Engineering at
+              Tech Sangi, founder of AWS Student Builder Group GEU, and former AI Engineering
+              Intern at Infosys Springboard. Experience with LangGraph agent frameworks, serverless AWS
+              architectures, and full-stack platforms.
+            </p>
+            <dl className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-3">
+              {stats.map((stat) => (
+                <div key={stat.label} className="flex flex-col-reverse">
+                  <dt className="text-xs text-subtle">{stat.label}</dt>
+                  <dd className="text-2xl font-medium tracking-tight text-fg">{stat.value}</dd>
                 </div>
-                <div className="text-right shrink-0">
-                  <p className="text-xs font-mono text-neutral-700">{exp.period}</p>
-                  <p className="text-xs text-neutral-700">{exp.location}</p>
+              ))}
+            </dl>
+          </ResumeSection>
+
+          <ResumeSection title="Experience">
+            <ExperienceTimeline roles={experience} />
+          </ResumeSection>
+
+          <ResumeSection title="Projects">
+            <div className="space-y-8">
+              {projects.map((project) => (
+                <article key={project.id} className="avoid-break">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="text-lg font-medium tracking-tight text-fg">
+                      <Link href={`/work#${project.id}`} className="hover:text-accent">{project.title}</Link>
+                    </h3>
+                    <span className="text-xs text-subtle">{project.category}</span>
+                  </div>
+                  <p className="mt-2 leading-relaxed text-muted">{project.description}</p>
+                  <ul className="mt-3 flex flex-wrap gap-1.5">
+                    {project.skills.map((skill) => (
+                      <li key={skill} className="chip">{skill}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </ResumeSection>
+
+          <ResumeSection title="Education">
+            {education.map((item) => (
+              <div key={item.id}>
+                <h3 className="font-medium text-fg">{item.institution}</h3>
+                <p className="text-sm text-subtle">{item.location}</p>
+                <p className="mt-2 text-muted">{item.detail}</p>
+              </div>
+            ))}
+          </ResumeSection>
+
+          <ResumeSection title="Certifications">
+            <ul className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+              {certifications.map((cert) => (
+                <li key={cert.id} className="avoid-break">
+                  <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-fg hover:text-accent">
+                    {cert.title}
+                  </a>
+                  <p className="text-xs text-subtle">{cert.issuer} · {cert.issued}</p>
+                </li>
+              ))}
+            </ul>
+          </ResumeSection>
+
+          <ResumeSection title="Skills">
+            <dl className="space-y-4">
+              {Object.entries(techStack).map(([category, data]) => (
+                <div key={category} className="grid gap-1 sm:grid-cols-[200px_1fr] sm:gap-4">
+                  <dt className="text-sm font-medium text-fg">{category}</dt>
+                  <dd className="text-sm text-muted">{data.items.join(", ")}</dd>
                 </div>
-              </div>
-              <p className="text-sm text-neutral-600 leading-relaxed mt-2 mb-2">
-                {exp.description}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {exp.skills.map((skill) => (
-                  <span key={skill} className="tag">{skill}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+              ))}
+            </dl>
+          </ResumeSection>
         </div>
-      </section>
-
-      {/* Projects */}
-      <section className="mb-10 pb-10 border-b border-neutral-900">
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-6">
-          Selected Projects
-        </h2>
-        <div className="space-y-6">
-          {projects.map((project) => (
-            <div key={project.id}>
-              <div className="flex items-start justify-between gap-4 mb-1">
-                <h3 className="text-sm font-medium text-neutral-200">{project.title}</h3>
-                <span className="text-xs text-neutral-700 shrink-0">{project.category}</span>
-              </div>
-              <p className="text-sm text-neutral-600 leading-relaxed mb-2">{project.description}</p>
-              <div className="flex flex-wrap gap-1.5">
-                {project.skills.map((skill) => (
-                  <span key={skill} className="tag">{skill}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="mb-10 pb-10 border-b border-neutral-900">
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-6">
-          Certifications
-        </h2>
-        <div className="grid sm:grid-cols-2 gap-3">
-          {certifications.map((cert) => (
-            <Link
-              key={cert.id}
-              href={cert.credentialUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-start justify-between gap-2 p-3 border border-neutral-900 rounded hover:border-neutral-800 transition-colors"
-            >
-              <div>
-                <p className="text-xs font-medium text-neutral-300 group-hover:text-neutral-100 transition-colors">
-                  {cert.title}
-                </p>
-                <p className="text-xs text-neutral-600 mt-0.5">
-                  {cert.issuer} · {cert.issued}
-                </p>
-              </div>
-              <ArrowUpRight size={9} className="text-neutral-700 group-hover:text-neutral-500 transition-colors shrink-0 mt-0.5" />
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section className="mb-10">
-        <h2 className="text-xs font-mono text-neutral-600 tracking-widest uppercase mb-6">
-          Technical Skills
-        </h2>
-        <div className="space-y-4">
-          {Object.entries(techStack).map(([category, data]) => (
-            <div key={category} className="grid sm:grid-cols-[180px,1fr] gap-3">
-              <p className="text-xs text-neutral-600">{category}</p>
-              <p className="text-xs text-neutral-500">{data.items.join(", ")}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Links */}
-      <section className="pt-8 border-t border-neutral-900">
-        <div className="flex flex-wrap gap-6">
-          {[
-            { label: "GitHub", href: siteConfig.links.github },
-            { label: "LinkedIn", href: siteConfig.links.linkedin },
-            { label: "Dev.to", href: siteConfig.links.devto },
-            { label: "AWS Community", href: siteConfig.links.awsCommunity },
-          ].map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
-            >
-              {link.label} <ArrowUpRight size={9} />
-            </Link>
-          ))}
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }
